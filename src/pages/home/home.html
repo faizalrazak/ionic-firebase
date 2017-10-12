@@ -7,8 +7,69 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  
+  <form [formGroup]="addSongForm" (submit)="addSong()" novalidate>
+
+  	<ion-item>
+      <ion-label stacked>Song Name</ion-label>
+      <ion-input formControlName="songName" type="text" 
+        placeholder="What's the song's name?"
+        [class.invalid]="!addSongForm.controls.songName.valid && addSongForm.controls.songName.dirty">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message" 
+      *ngIf="!addSongForm.controls.songName.valid && addSongForm.controls.songName.dirty">
+      <p>
+        The song's name is required to be under 45 characters.
+      </p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Artist Name</ion-label>
+      <ion-input formControlName="artistName" type="text" 
+        placeholder="What's the artist's name?"
+        [class.invalid]="!addSongForm.controls.artistName.valid && addSongForm.controls.artistName.dirty">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message" 
+      *ngIf="!addSongForm.controls.artistName.valid && addSongForm.controls.artistName.dirty">
+      <p>
+        The artist's name has to be at least 2 characters long.
+      </p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>How old are you?</ion-label>
+      <ion-input formControlName="userAge" type="number" 
+        placeholder="I'm 30 years old."
+        [class.invalid]="!addSongForm.controls.userAge.valid && addSongForm.controls.userAge.dirty">
+      </ion-input>
+    </ion-item>
+
+    <ion-item class="error-message" 
+      *ngIf="!addSongForm.controls.userAge.valid && addSongForm.controls.userAge.dirty">
+      <p>
+        You must be 18 or older to use this app.
+      </p>
+    </ion-item>
+
+
+    <button ion-button block type="submit" [disabled]="!addSongForm.valid">
+      Add Song
+    </button>
+
+  </form>
+
+
+  <ion-list>
+	  <ion-item *ngFor="let item of items">
+	    <h2>{{item.songName}}</h2>
+	    <h3>{{item.artistName}}</h3>
+	    <p>I am {{item.userAge}}</p>
+	  </ion-item>
+	</ion-list>
+
+
 </ion-content>
